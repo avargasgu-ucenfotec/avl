@@ -14,7 +14,7 @@ public class Main {
             System.out.println("[1] Buscar nodo");
             System.out.println("[2] Insertar nodo");
             System.out.println("[3] Eliminar nodo");
-            System.out.println("[4] Imprimir nodo");
+            System.out.println("[4] Imprimir árbol");
             System.out.println("[0] Salir");
             System.out.print("\nSeleccione una opción del menú: ");
             try {
