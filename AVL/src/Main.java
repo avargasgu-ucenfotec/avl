@@ -37,7 +37,11 @@ public class Main {
             case 1:
                 System.out.print("Digite el número entero que desea buscar en el árbol: ");
                 entero = Integer.parseInt(leerTexto());
-                avl.buscar(entero);
+                if (avl.buscar(entero)) {
+                    System.out.println("El número entero sí se encuentra en el árbol.");
+                } else {
+                    System.out.println("El número entero no se encuentra en el árbol.");
+                }
                 break;
             case 2:
                 System.out.print("Digite el número entero que desea insertar en el árbol: ");

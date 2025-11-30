@@ -20,24 +20,20 @@ public class AVL {
     }
 
     //Buscar nodo
-    public NodoAVL buscar(int llaveBuscar) {
-        if (estaVacio()) {
+    public boolean buscar(int llaveBuscar) {
+        return buscarNodo(raiz, llaveBuscar);
+    }
+
+    public boolean buscarNodo(NodoAVL raiz, int llaveBuscar) {
+        if (raiz == null) {
             System.out.println("El árbol está vacío.\n");
-            return null;
+            return false;
         }
-        NodoAVL nodoTemp = raiz;
-        while (nodoTemp.getLlave() != llaveBuscar) {
-            if (llaveBuscar < nodoTemp.getLlave()) {
-                nodoTemp = nodoTemp.getHijoIzquierdo();
-            } else {
-                nodoTemp = nodoTemp.getHijoDerecho();
-            }
-            if (nodoTemp == null) {
-                System.out.println("El nodo buscado no está en el árbol.\n");
-                return null;
-            }
-        }
-        return nodoTemp;
+        if (raiz.getLlave() == llaveBuscar)
+            return true;
+        if (raiz.getLlave() < llaveBuscar)
+            return buscarNodo(raiz.getHijoDerecho(), llaveBuscar);
+        return buscarNodo(raiz.getHijoIzquierdo(), llaveBuscar);
     }
 
     //Insertar nodo
