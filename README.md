@@ -56,6 +56,8 @@ Digite el número entero que desea buscar en el árbol: 1
 ```
 ```
 El árbol está vacío.
+
+El número entero no se encuentra en el árbol.
 ```
 Se confirma que el elemento no se encuentra en el árbol vacío.
 
