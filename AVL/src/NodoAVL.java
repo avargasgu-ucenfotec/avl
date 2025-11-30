@@ -1,22 +1,22 @@
 public class NodoAVL {
 
-    //Atributos.
+    //Atributos
     private int llave;
     private NodoAVL hijoIzquierdo;
     private NodoAVL hijoDerecho;
     private int altura;
 
-    //Métodos.
-    //Constructor.
+    //Métodos
+    //Constructor
     public NodoAVL(int llave) {
         this.llave = llave;
         this.hijoIzquierdo = null;
         this.hijoDerecho = null;
         altura = 1; //Cualquier nodo es una hoja al momento de su inserción.
-        // La altura de toda hoja es por defecto 1.
+        //La altura de toda hoja es por defecto 1.
     }
 
-    //Getters.
+    //Getters
     public int getLlave() {
         return llave;
     }
@@ -33,7 +33,11 @@ public class NodoAVL {
         return altura;
     }
 
-    //Setters.
+    //Setters
+    public void setLlave(int llave) {
+        this.llave = llave;
+    }
+
     public void setHijoIzquierdo(NodoAVL hijoIzquierdo) {
         this.hijoIzquierdo = hijoIzquierdo;
     }
@@ -46,6 +50,7 @@ public class NodoAVL {
         this.altura = altura;
     }
 
+    //Funcionales
     public int evaluarAltura(NodoAVL nodoEvaluar) {
         if (nodoEvaluar == null) {
             return 0;
@@ -57,21 +62,54 @@ public class NodoAVL {
         if (nodoEvaluar == null) {
             return 0;
         }
-        return evaluarAltura(nodoEvaluar.getHijoIzquierdo()) -
-                evaluarAltura(nodoEvaluar.getHijoDerecho());
+        return evaluarAltura(nodoEvaluar.getHijoIzquierdo()) - evaluarAltura(nodoEvaluar.getHijoDerecho());
     }
 
     public int balancear() {
         return evaluarBalance(this);
     }
 
-    //public NodoAVL rotarIzquierda(NodoAVL nodoRotar) { ... }
+    //Rotar a la izquierda
+    public NodoAVL rotarIzquierda(NodoAVL nodoRotar) {
+        NodoAVL nuevoPadre = nodoRotar.getHijoDerecho();
+        NodoAVL nodoTemp = nuevoPadre.getHijoIzquierdo();
 
-    //public NodoAVL rotarDerecha(NodoAVL nodoRotar) { ... }
+        nuevoPadre.setHijoIzquierdo(nodoRotar);
+        nodoRotar.setHijoDerecho(nodoTemp);
 
-    //public NodoAVL rotarIzquierdaDerecha(NodoAVL nodoRotar) { ... }
+        nodoRotar.actualizarAltura();
+        nuevoPadre.actualizarAltura();
 
-    //public NodoAVL rotarDerechaIzquierda(NodoAVL nodoRotar) { ... }
+        return nuevoPadre;
+    }
+
+    //Rotar a la derecha
+    public NodoAVL rotarDerecha(NodoAVL nodoRotar) {
+        NodoAVL nuevoPadre = nodoRotar.getHijoIzquierdo();
+        NodoAVL temp = nuevoPadre.getHijoDerecho();
+
+        // Realizar la rotación derecha.
+        nuevoPadre.setHijoDerecho(nodoRotar);
+        nodoRotar.setHijoIzquierdo(temp);
+
+        // Actualizar las alturas de los nodos.
+        nodoRotar.actualizarAltura();
+        nuevoPadre.actualizarAltura();
+
+        return nuevoPadre;
+    }
+
+    //Rotar a la izquierda, luego rotar a la derecha
+    public NodoAVL rotarIzquierdaDerecha(NodoAVL nodoRotar) {
+        nodoRotar.setHijoIzquierdo(rotarIzquierda(nodoRotar.getHijoIzquierdo()));
+        return rotarDerecha(nodoRotar);
+    }
+
+    //Rotar a la derecha, luego rotar a la izquierda
+    public NodoAVL rotarDerechaIzquierda(NodoAVL nodoRotar) {
+        nodoRotar.setHijoDerecho(rotarDerecha(nodoRotar.getHijoDerecho()));
+        return rotarIzquierda(nodoRotar);
+    }
 
     public void actualizarAltura() {
         this.altura = Math.max(evaluarAltura(hijoIzquierdo), evaluarAltura(hijoDerecho)) + 1;
